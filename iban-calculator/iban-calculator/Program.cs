@@ -18,40 +18,33 @@ namespace iban_calculator
              * Lopuksi laskuri laskee IBAN-tilinumerossa käytössä olevan tarkisteen, joka on kaksi merkkiä maakoodin jälkeen.
              */
 
-            // Read BAN from user
+            Console.WriteLine("IBAN Calculator");
+            Console.WriteLine("Converts Finnish basic bank account number to IBAN");
+            Console.WriteLine();
 
+            // Read BAN from user
             Console.Write("Enter an account number: ");
             string userInput = Console.ReadLine();
-            string accountNumber = BBAN.ParseAccountNumber(userInput);
+            Console.WriteLine();
 
-            //Test
-            Console.WriteLine("Test BBAN.Parse()!");
-            Console.WriteLine("User input: {0}, length: {1}", userInput, userInput.Length);
-            Console.WriteLine("Parse output: {0}, length: {1}", accountNumber, accountNumber.Length);
+            BBAN bban = new BBAN();
 
-            // Parse and check BAN, create BAN
-            Console.WriteLine("Test BBAN.SetAccountNumber, get .BankAccountNumber");
-            BBAN bankAccountNumber = new BBAN();
-            bankAccountNumber.SetAccountNumber(accountNumber);
-            Console.WriteLine("Account number is: {0}", bankAccountNumber.BankAccountNumber);
-
-            // Create IBAN from BAN
-            IBAN internationalAccountNumber = new IBAN();
-            internationalAccountNumber.BuildIBAN(bankAccountNumber);
-
-            //Print IBAN to user
-            Console.WriteLine("IBAN is: {0}", internationalAccountNumber.InternationalBankAccountNumber);
-
-            //Check IBAN
-            if (!IBAN.ValidateIBAN(internationalAccountNumber))
+            if (!bban.ParseFromInput(userInput))
             {
-                Console.WriteLine("Invalid IBAN!");
+                Console.WriteLine("Account number format is incorrect!");
             }
             else
             {
-                Console.WriteLine("Valid IBAN!");
+                Console.WriteLine("BBAN: {0}", bban.BasicBAN);
+                Console.WriteLine("BBAN check digit is valid: {0}", bban.HasValidCheckDigit());
+                IBAN iban = new IBAN();
+                iban.SetIBAN(bban.ToIBAN());
+                Console.WriteLine("IBAN in machine inface format: {0}", iban.InternationalBAN);
+                Console.WriteLine("IBAN in human interface format: {0}", iban.ToHumanFormat());
+                Console.WriteLine("IBAN check digits are valid: {0}", iban.IsValidIBAN());
             }
 
+            Console.WriteLine();
             Console.WriteLine("Press Enter to exit!");
             Console.ReadLine();
         }

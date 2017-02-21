@@ -8,33 +8,27 @@ namespace iban_calculator
 {
     public class BBAN
     {
-        private string bankAccountNumber;
-        
-        public string BankAccountNumber
+        private string basicBAN;
+        private bool isValid;
+
+        public string BasicBAN
         {
             get
             {
-                return bankAccountNumber;
+                return basicBAN;
             }
-            /*
-            set
-            {
-                //Consider, if set is required, perhaps not
-                //Use this or separate set
-            }
-            */
         }
 
-        public BBAN ()
+        public BBAN()
         {
-            bankAccountNumber = "Not defined";
+            basicBAN = string.Empty;
+            isValid = false;
         }
 
-        public static string ParseAccountNumber (string userInput)
+        public bool ParseFromInput(string userInput)
         {
-            //Parse account number from user input, return account number
-
             //Remove any spaces and '-', ignore possible other format errors in the content
+            //Format errors are currently not checked for the position or number of spaces or '-'
             string accountNumber = String.Empty;
             foreach (char character in userInput)
             {
@@ -45,64 +39,35 @@ namespace iban_calculator
                 }
                 else
                 {
-                    //Probably inefficient, StringBuilder could be used instead
-                    //However, there are not many iterations
                     accountNumber += character.ToString();
                 }
             }
-
-            //Check for format errors, content has to be all digits and length between 8 and 14 digits
-            if(!accountNumber.All(Char.IsDigit))
+            //Check for format errors, content has to be all digits and length has to be between 8 and 14 digits
+            //Format errors are currently not checked for leading zeroes
+            //Format errors are currently not checked for bank code validity
+            if (!accountNumber.All(Char.IsDigit))
             {
                 //Format error, content
+                return false;
+
                 //Just for testing, add exception handling!
-                Console.WriteLine("Format error, content!");
+                //Console.WriteLine("Format error, content!");
             }
             else if (accountNumber.Length < 8 || accountNumber.Length > 14)
             {
                 //Format error, length
+                return false;
+
                 //Just for testing, add exception handling!
-                Console.WriteLine("Format error, length!");
+                //Console.WriteLine("Format error, length!");
             }
 
-            //!!!
-            //Note: above error handling does not check for leading zeroes!
-            //!!!
-
-            //Create machine format account number by adding zeroes according to the following formatting rules
-
-            /*
-            1 = Nordea Pankki (Nordea)
-            2 = Nordea Pankki (Nordea)
-            31 = Handelsbanken
-            33 = Skandinaviska Enskilda Banken (SEB)
-            34 = Danske Bank
-            36 = Tapiola Pankki
-            37 = DnB NOR Bank ASA (DnB NOR)
-            38 = Swedbank
-            39 = S-Pankki
-            4 = Aktia Pankki, Säästöpankit (Sp) ja Paikallisosuuspankit (POP)
-            5 = OP-Pohjola-ryhmä (Osuuspankit (OP), Helsingin OP Pankki ja Pohjola Pankki)
-            6 = Ålandsbanken ÅAB)
-            8 = Sampo Pankki
-
-            Nordea, Handelsbanken, SEB, Danske Bank, Tapiola Pankki, DnB NOR, Swedbank, S-Pankki, ÅAB ja Sampo Pankki
-
-            Näiden pankkien tilinumerot täydennetään nollilla vasemmalta lukien kuuden numeron jälkeen siten, että 14 numeroa täyttyy.
-
-            Aktia Pankki, Säästöpankit (Sp), Paikallisosuuspankit (POP) ja OPPohjola-ryhmä (osuuspankit (OP), Helsingin OP Pankki ja Pohjola Pankki
-
-            Näiden pankkien tilinumerot täydennetään nollilla vasemmalta lukien seitsemännen numeron jälkeen siten, että 14 numeroa täyttyy.
-            */
-
-            //Just a quick version, with no check for valid financial institution specific codes
-            //!!!
-            //Consider reworking this part!
-            //!!!
-            if (accountNumber.ToCharArray().GetValue(0).Equals('4') || accountNumber.ToCharArray().GetValue(0).Equals('5'))
+            //Create machine format BBAN
+            //Formatting does not currently explicitly check all the bank codes
+            if (accountNumber[0].Equals('4') || accountNumber[0].Equals('5'))
             {
                 //Insert zeroes after 7th digit, until length is 14
-                Console.WriteLine("Insert after 7th digit!");
+                //Console.WriteLine("Insert after 7th digit!");
                 while (accountNumber.Length < 14)
                 {
                     accountNumber = accountNumber.Insert(7, "0");
@@ -111,40 +76,65 @@ namespace iban_calculator
             else
             {
                 //Insert zeroes after 6th digit, until length is 14
-                Console.WriteLine("Insert after 6th digit!");
+                //Console.WriteLine("Insert after 6th digit!");
                 while (accountNumber.Length < 14)
                 {
                     accountNumber = accountNumber.Insert(6, "0");
                 }
             }
 
-            //Return machine format account number
-            return accountNumber;
-}
+            //Set BBAN
+            basicBAN = accountNumber;
+            isValid = true;
+            return true;
+        }
 
-public bool SetAccountNumber (string accountNumber)
-{
-            if (!ValidateAccountNumber(accountNumber))
+        public string ToIBAN()
+        {
+            //Convert Finnish BBAN to IBAN
+            //Country code is always FI, append FI00 or in converted form 151800
+            //Returns empty string, if BBAN is not valid
+            //Exception handling logic could be additionally implemented
+
+            if (!isValid)
             {
-                //!!!
-                //Consider exception handling!
-                //!!!
+                //No valid BBAN to convert
+                return String.Empty;
+            }
+            else
+            {
+                //Convert Finnish BBAN to IBAN
+                string checkString = basicBAN;
+                checkString += "151800";
+                decimal checkNumber = 0;
+                int checkDigit = 0;
+                string internationalBAN = String.Empty;
+                if (!Decimal.TryParse(checkString, out checkNumber))
+                {
+                    return internationalBAN;
+                }
+                //Calculate check digit
+                checkDigit = 98 - (int)(checkNumber % 97);
+                //Create IBAN
+                internationalBAN = "FI" + checkDigit.ToString("D2") + basicBAN;
+                return internationalBAN;
+            }
+        }
+
+        public bool HasValidCheckDigit()
+        {
+            if (!isValid)
+            {
+                return false;
+            }
+            else if (!LuhnModulo10.HasValidCheckDigit(basicBAN))
+            {
                 return false;
             }
             else
             {
-                bankAccountNumber = accountNumber;
+                return true;
             }
-            return true;
-}
-
-private static bool ValidateAccountNumber (string accountNumber)
-{
-//Validate account number format and check digit
-return true;
-}
-
-
-
-}
+        }
+    }
 }
