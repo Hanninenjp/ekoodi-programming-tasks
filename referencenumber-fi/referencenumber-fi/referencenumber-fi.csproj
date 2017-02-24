@@ -33,8 +33,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ReferenceNumber">
-      <HintPath>..\..\referencenumber-library\ReferenceNumber\bin\Debug\ReferenceNumber.dll</HintPath>
+    <Reference Include="bank-utilities">
+      <HintPath>..\..\bank-utilities-library\bank-utilities\bin\Debug\bank-utilities.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
