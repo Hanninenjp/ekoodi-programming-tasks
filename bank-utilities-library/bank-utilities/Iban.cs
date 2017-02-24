@@ -45,6 +45,7 @@ namespace Ekoodi.Utilities
             //Private constructors are used to prevent creating instances of a class
             //when there are no instance fields or methods, such as the Math class, or
             //when a method is called to obtain an instance of a class.
+            //Parse method could possibly be the main means to obtain an instance
             //!!!
             //This needs further attention!
             //!!!

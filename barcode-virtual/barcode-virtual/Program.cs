@@ -48,7 +48,7 @@ namespace barcode_virtual
                 referenceInput = "ABC";
 #endif
 #endif
-                BankReference reference = ReferenceCreator.Parse(referenceInput);
+                BankReference reference = ReferenceCreator.SelectReference(referenceInput);
 
                 Console.Write("Enter sum: ");
                 string sumInput = Console.ReadLine();

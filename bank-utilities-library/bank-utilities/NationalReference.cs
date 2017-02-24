@@ -31,10 +31,13 @@ namespace Ekoodi.Utilities
 
         public override string ToString()
         {
-            //Print or barcode format, based on format specifier?
-            //!!!
-            //Now just returns the unformatted string!
-            //!!!
+            return _reference;
+        }
+
+        public string ToPrint()
+        {
+            //Print format
+            //Implementation is still missing
             return _reference;
         }
 
@@ -82,13 +85,35 @@ namespace Ekoodi.Utilities
             }
         }
 
-        public static string CreateReference(string basepart)
+        public static BankReference CreateReference(string basepart)
         {
-            //Note: check basepart format before conversion!
-            //Console.WriteLine("ReferenceNumber:CreateReference:Basepart: {0}", basepart);
-            string referenceNumber = basepart + GetCheckDigit(basepart);
-            //Console.WriteLine("ReferenceNumber:CreateReference:Reference number: {0}", referenceNumber);
-            return referenceNumber;
+            if (hasValidBasepartFormat(basepart))
+            {
+                //Leading zeroes are removed
+                string referenceNumber = basepart.TrimStart('0');
+                referenceNumber = basepart + GetCheckDigit(basepart);
+                return new NationalReference(referenceNumber);
+            }
+            else
+            {
+                throw new FormatException("Invalid basepart!");
+            }
+        }
+
+        private static bool hasValidBasepartFormat(string basepart)
+        {
+            if (!basepart.IsDigits())
+            {
+                return false;
+            }
+            else if (basepart.Length < 3 || basepart.Length > 19)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
 
         //Could be moved to separate modulus 731 or something like that class

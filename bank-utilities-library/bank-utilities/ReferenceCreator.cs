@@ -10,29 +10,58 @@ namespace Ekoodi.Utilities
     {
         private static int referenceIncrement = 1;
 
-        public static string GetReference(string basepart)
+        public static BankReference GetReference(string basepart)
         {
-            //Create single reference number
-            return NationalReference.CreateReference(basepart);
-        }
-
-        public static IList<string> GetReference(string basepart, int count)
-        {
-            //Create list of sequential reference numbers
-            IList<string> referenceNumbers = new List<string>();
-            for (int i = 0; i < count; i++)
+            try
             {
-                string sequentialReferenceBody = basepart + referenceIncrement.ToString();
-                string referenceNumber = NationalReference.CreateReference(sequentialReferenceBody);
-                //Console.WriteLine("ReferenceCreator:GetReference:Reference number: {0}", referenceNumber);
-                referenceNumbers.Add(referenceNumber);
-                referenceIncrement++;
+                return NationalReference.CreateReference(basepart);
             }
-            return referenceNumbers;
+            catch (Exception e)
+            {
+
+                throw e;
+            }
         }
 
-        public static BankReference Parse(string reference)
+        public static BankReference GetReference(BankReference reference)
         {
+            try
+            {
+                return InternationalReference.CreateReference(reference);
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+        }
+
+        public static IList<BankReference> GetReferenceList(string basepart, int count)
+        {
+            //Create list of sequential national references
+            //Could be extended with parameter indicating reference type to enable 
+            //getting also international references
+            try
+            {
+                IList<BankReference> referenceList = new List<BankReference>();
+                for (int i = 0; i < count; i++)
+                {
+                    string sequentialReferenceBody = basepart + referenceIncrement.ToString();
+                    BankReference reference = NationalReference.CreateReference(sequentialReferenceBody);
+                    referenceList.Add(reference);
+                    referenceIncrement++;
+                }
+                return referenceList;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public static BankReference SelectReference(string reference)
+        {
+            //Select reference type, create and return reference
             if (NationalReference.IsValid(reference))
             {
                 return new NationalReference(reference);
@@ -43,7 +72,7 @@ namespace Ekoodi.Utilities
             }
             else
             {
-                throw new ArgumentException("Input is invalid!");
+                throw new FormatException("Invalid input!");
             }
         }
     }

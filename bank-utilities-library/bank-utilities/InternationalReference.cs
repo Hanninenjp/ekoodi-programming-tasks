@@ -95,7 +95,7 @@ namespace Ekoodi.Utilities
             }
             else if (reference.Length < 5 || reference.Length > 25)
             {
-                //Shall include a reference number (at least one digit) and shall not exceed the maximum length (25 characters)
+                //Shall include a reference (at least one alphanumeric) and shall not exceed the maximum length (25 characters)
                 return false;
             }
             else
@@ -104,19 +104,17 @@ namespace Ekoodi.Utilities
             }
         }
 
-        public static string CreateReference(string reference)
+        public static BankReference CreateReference(BankReference reference)
         {
-            //This method could return an object, instead of string
+            //There is currently no format check and error handling,
+            //currently always created from other reference that is assumed to be valid!
             string referenceIdentifier = "RF";
-            string alphanumericSequence = reference + referenceIdentifier + "00";
+            string alphanumericSequence = reference.Reference + referenceIdentifier + "00";
             string digitSequence = String.Empty;
-            //!!!
-            //Error handling
-            //!!!
             CharacterConverter.Convert(alphanumericSequence, out digitSequence);
             string checkDigits = Modulus97.GetCheckDigits(digitSequence);
-            string internationalReference = referenceIdentifier + checkDigits + reference;
-            return internationalReference;
+            string referenceSequence = referenceIdentifier + checkDigits + reference.Reference;
+            return new InternationalReference(referenceSequence);
         }
     }
 }
