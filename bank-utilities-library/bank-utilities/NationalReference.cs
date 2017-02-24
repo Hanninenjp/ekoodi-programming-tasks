@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Ekoodi.Utilities
 {
-    public class ReferenceNumber
+    public class NationalReference:BankReference
     {
         private string _reference;
 
-        public string Reference
+        public override string Reference
         {
             get
             {
@@ -18,9 +18,24 @@ namespace Ekoodi.Utilities
             }
         }
 
-        public ReferenceNumber()
+        public NationalReference()
         {
             _reference = String.Empty;
+        }
+
+        public NationalReference(string reference)
+        {
+            //Exception handling could be implemented
+            _reference = reference;
+        }
+
+        public override string ToString()
+        {
+            //Print or barcode format, based on format specifier?
+            //!!!
+            //Now just returns the unformatted string!
+            //!!!
+            return _reference;
         }
 
         public bool IsValid()
@@ -35,20 +50,35 @@ namespace Ekoodi.Utilities
 
         private static bool isValid(string reference)
         {
-            //Note: check reference format before conversion!
-            //Not an empty string, all digits, valid length
-            IList<int> digits = toDigits(reference);
-            int validCheckDigit = getCheckDigit(digits.Take(digits.Count() - 1).ToList());
-            int currentCheckDigit = digits.Last();
-            //Console.WriteLine("Valid check digit: {0}", validCheckDigit);
-            //Console.WriteLine("Current check digit: {0}", currentCheckDigit);
-            if (currentCheckDigit == validCheckDigit)
+            if (hasValidFormat(reference))
             {
-                return true;
+                IList<int> digits = toDigits(reference);
+                int validCheckDigit = getCheckDigit(digits.Take(digits.Count() - 1).ToList());
+                int currentCheckDigit = digits.Last();
+                //Console.WriteLine("Valid check digit: {0}", validCheckDigit);
+                //Console.WriteLine("Current check digit: {0}", currentCheckDigit);
+                if (currentCheckDigit == validCheckDigit)
+                {
+                    return true;
+                }
+                return false;
+            }
+            return false;
+        }
+
+        private static bool hasValidFormat(string reference)
+        {
+            if (!reference.IsDigits())
+            {
+                return false;
+            }
+            else if (reference.Length < 4 || reference.Length > 20)
+            {
+                return false;
             }
             else
             {
-                return false;
+                return true;
             }
         }
 
@@ -61,6 +91,8 @@ namespace Ekoodi.Utilities
             return referenceNumber;
         }
 
+        //Could be moved to separate modulus 731 or something like that class
+        //Then there could also be separate get and validate, like with modulus 97
         public static string GetCheckDigit(string reference)
         {
             IList<int> digits = toDigits(reference);
@@ -68,12 +100,14 @@ namespace Ekoodi.Utilities
             return checkDigit.ToString();
         }
 
+        //Could be moved to modulus 731 class
         private static IList<int> toDigits(string reference)
         {
             //Exception handling could be added
             return reference.Select(c => int.Parse(c.ToString())).ToList();
         }
 
+        //Could be moved to modulus 731 class
         private static int getCheckDigit(IList<int> digits)
         {
             int[] weights = { 7, 3, 1 };

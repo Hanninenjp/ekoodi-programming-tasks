@@ -10,7 +10,7 @@ namespace Ekoodi.Utilities
     {
         public static string GetCheckDigits(string digits)
         {
-            //Calculates ISO Modulo 97-10 checksum
+            //Calculates ISO Modulus 97-10 checksum
             //Used in IBAN and international bank reference number
             decimal digitsValue = decimal.Parse(digits);
             int checkSum = 98 - (int)(digitsValue % 97);
@@ -20,7 +20,7 @@ namespace Ekoodi.Utilities
 
         public static bool ValidateCheckDigits(string digits)
         {
-            //Performs ISO Modulo 97-10 validation
+            //Performs ISO Modulus 97-10 validation
             //Decimal supports 28-29 significant digits
             //Validating longer strings would require using another type
             //Especially possible validation of non-Finnish IBAN numbers requires attention

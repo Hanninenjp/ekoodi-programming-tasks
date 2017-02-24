@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Ekoodi.Utilities
 {
-    public class InternationalReferenceNumber
+    public class InternationalReference:BankReference
     {
         private string _reference;
 
-        public string Reference
+        public override string Reference
         {
             get
             {
@@ -18,9 +18,34 @@ namespace Ekoodi.Utilities
             }
         }
 
-        public InternationalReferenceNumber()
+        public InternationalReference()
         {
             _reference = String.Empty;
+        }
+
+        public InternationalReference(string reference)
+        {
+            //Exception handling could be implemented
+            /*
+            if (InternationalReference.IsValid(reference))
+            {
+                _reference = reference;
+            }
+            else
+            {
+                throw new FormatException("Reference creation failed due to invalid reference!");
+            }
+            */
+            _reference = reference;
+        }
+
+        public override string ToString()
+        {
+            //Print format is also needed, coudl be another method!
+            //!!!
+            //Now just returns the unformatted string!
+            //!!!
+            return _reference;
         }
 
         public bool IsValid()
@@ -43,7 +68,7 @@ namespace Ekoodi.Utilities
                 string checkSequence = referenceSequence + referenceIdentifier + checkDigits;
                 string digitSequence = String.Empty;
                 //International reference number may contain both upper and lower case characters
-                //Case is insignificant for the validation
+                //From validation point of view case is insignificant, digit values are the same for upper and lower case
                 //Conversion is done in upper case
                 if (CharacterConverter.Convert(checkSequence.ToUpper(), out digitSequence))
                 {
@@ -81,6 +106,7 @@ namespace Ekoodi.Utilities
 
         public static string CreateReference(string reference)
         {
+            //This method could return an object, instead of string
             string referenceIdentifier = "RF";
             string alphanumericSequence = reference + referenceIdentifier + "00";
             string digitSequence = String.Empty;

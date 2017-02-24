@@ -25,16 +25,16 @@ namespace referencenumber_international
             {
                 Console.Write("\nEnter international creditor reference: ");
                 string internationalReference = Console.ReadLine();
-                Console.WriteLine("\nValid: {0}", InternationalReferenceNumber.IsValid(internationalReference));
+                Console.WriteLine("\nValid: {0}", InternationalReference.IsValid(internationalReference));
             }
             else if (option == "2")
             {
                 Console.Write("\nEnter national creditor reference basepart: ");
                 string referenceBasepart = Console.ReadLine();
                 string nationalReference = ReferenceCreator.GetReference(referenceBasepart);
-                string internationalReference = InternationalReferenceNumber.CreateReference(nationalReference);
+                string internationalReference = InternationalReference.CreateReference(nationalReference);
                 Console.WriteLine("\nCreditor reference: {0}", internationalReference);
-                Console.WriteLine("Valid: {0}", InternationalReferenceNumber.IsValid(internationalReference));
+                Console.WriteLine("Valid: {0}", InternationalReference.IsValid(internationalReference));
             }
             else
             {

@@ -40,14 +40,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BankBarcode.cs" />
     <Compile Include="CharExtension.cs" />
     <Compile Include="CharExtensionBanking.cs" />
+    <Compile Include="Iban.cs" />
     <Compile Include="Modulus97.cs" />
-    <Compile Include="Reference-creator.cs" />
-    <Compile Include="Reference-number.cs" />
-    <Compile Include="Character-converter.cs" />
-    <Compile Include="International-reference-number.cs" />
+    <Compile Include="ReferenceCreator.cs" />
+    <Compile Include="NationalReference.cs" />
+    <Compile Include="CharacterConverter.cs" />
+    <Compile Include="InternationalReference.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="BankReference.cs" />
     <Compile Include="StringExtension.cs" />
     <Compile Include="StringExtensionBanking.cs" />
   </ItemGroup>
