@@ -35,6 +35,7 @@ namespace referencenumber_fi
                     string referenceBasepart = Console.ReadLine();
                     BankReference reference = ReferenceCreator.GetReference(referenceBasepart);
                     Console.WriteLine("\nReference number: {0}", reference.ToString());
+                    Console.WriteLine("Print format: {0}", reference.ToPrint());
                 }
                 else if (option == "3")
                 {

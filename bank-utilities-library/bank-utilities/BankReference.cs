@@ -9,5 +9,6 @@ namespace Ekoodi.Utilities
     public abstract class BankReference
     {
         public abstract string Reference { get; }
+        public abstract string ToPrint();
     }
 }

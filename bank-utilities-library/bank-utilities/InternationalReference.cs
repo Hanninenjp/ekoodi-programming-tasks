@@ -48,6 +48,12 @@ namespace Ekoodi.Utilities
             return _reference;
         }
 
+        public override string ToPrint()
+        {
+            //Temporary
+            return _reference;
+        }
+
         public bool IsValid()
         {
             return isValid(_reference);

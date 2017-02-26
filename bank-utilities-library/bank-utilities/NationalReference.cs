@@ -34,11 +34,31 @@ namespace Ekoodi.Utilities
             return _reference;
         }
 
-        public string ToPrint()
+        public override string ToPrint()
         {
-            //Print format
-            //Implementation is still missing
-            return _reference;
+            string printFormat = String.Empty;
+            if (!_reference.Equals(String.Empty))
+            {
+                int i = 0;
+                foreach (char character in _reference)
+                {
+                    //Five digit groups from left to right
+                    if (i != 0 && i % 5 == 0)
+                    {
+                        printFormat += " " + character;
+                    }
+                    else
+                    {
+                        printFormat += character;
+                    }
+                    i++;
+                }
+                return printFormat;
+            }
+            else
+            {
+                return String.Empty;
+            }
         }
 
         public bool IsValid()
