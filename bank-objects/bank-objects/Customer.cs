@@ -12,7 +12,31 @@ namespace bank_objects
         private string _lastName;
         private string _accountNumber;
 
-        //Methods:
-        //ToString()
+        public string AccountNumber
+        {
+            get
+            {
+                return _accountNumber;
+            }
+        }
+
+        public Customer()
+        {
+            _firstName = "Undefined";
+            _lastName = "Undefined";
+            _accountNumber = "Undefined";
+        }
+
+        public Customer(string firstName, string lastName, string accountNumber)
+        {
+            _firstName = firstName;
+            _lastName = lastName;
+            _accountNumber = accountNumber;
+        }
+
+        public override string ToString()
+        {
+            return String.Format("\nCustomer: {0} {1}\nAccount number: {2}", _firstName, _lastName, _accountNumber);
+        }
     }
 }
