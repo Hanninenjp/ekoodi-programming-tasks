@@ -12,13 +12,6 @@ namespace bank_objects
         private IList<Account> _accounts = new List<Account>();
         private static Random _rng = new Random();
 
-        //Methods:
-        //Create account, creates account and returns account number
-        //Get all account transactions by account
-        //Get account transactions by time frame by account
-        //Get account balance by account
-        //Add transaction by account
-
         public string BankName
         {
             get
@@ -39,12 +32,8 @@ namespace bank_objects
 
         public string CreateAccount()
         {
-            //Luo pankkiin jokaiselle asiakkaalle oma pankkitili.
-            //Pankkiin luodun tilin tilinumero palautetaan ja talletetaan asiakas-olion muuttujaan.
-            //Tee tilinumerosta 18 merkkiä pitkä.
-            //Kaksi ensimmäistä merkkiä ovat 'FI'.Generoi loput merkit käyttäen C#:n Random-luokkaa.
-
             //Create random account number
+            //Not a valid IBAN!
             string accountNumber = "FI";
             for (int i = 0; accountNumber.Length < 18; i++)
             {
@@ -60,7 +49,6 @@ namespace bank_objects
         public void AddTransaction(string accountNumber, decimal sum, DateTime timeStamp)
         {
             Account targetAccount = _accounts.First(account => account.AccountNumber.Equals(accountNumber));
-            //Console.WriteLine("\nBank:AddTransaction:Target account: {0}", targetAccount.AccountNumber);
             targetAccount.AddTransaction(sum, timeStamp);
         }
 

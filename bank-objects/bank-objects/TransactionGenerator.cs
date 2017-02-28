@@ -23,7 +23,7 @@ namespace bank_objects
                     int dayIncrement = _rng.Next(1, 5);
                     if (timeStamp.Day + dayIncrement < DateTime.DaysInMonth(timeStamp.Year, timeStamp.Month))
                     {
-                        timeStamp = timeStamp.AddDays(dayIncrement);
+                        timeStamp = timeStamp.AddDays(dayIncrement).AddHours(_rng.Next(0, 24)).AddMinutes(_rng.Next(0, 60)).AddSeconds(_rng.Next(0, 60));
                         TransactionGenerator.processPayment(bank, accountNumber, timeStamp);
                     }
                     else
@@ -48,8 +48,9 @@ namespace bank_objects
         //Payment
         public static void processPayment(Bank bank, string accountNumber, DateTime timeStamp)
         {
-            //Generate random payment [1,00-200,00] EUR
-            bank.AddTransaction(accountNumber, -_rng.Next(1, 201), timeStamp);
+            //Generate random payment [1,00-199,99] EUR
+            decimal paymentSum = -((decimal)_rng.Next(1, 200) + (decimal)_rng.Next(0, 100) / 100);
+            bank.AddTransaction(accountNumber, paymentSum, timeStamp);
         }
     }
 }

@@ -10,48 +10,47 @@ namespace bank_objects
     {
         static void Main(string[] args)
         {
+            //Increase window height to 40 rows
+            Console.WindowHeight = 40;
+            //Set window title
+            Console.Title = "Bank objects test framework";
             Console.WriteLine("Bank objects test framework!");
+
+            //Create bank
             Bank bank = new Bank("Savings bank");
+
+            //Create customers
+            //!!!
+            //Customers are currently fully known by the test application only!
+            //Bank does not store Customer(s), but Account(s)
+            //Account(s) does not store Customer(s) either, but account numbers 
+            //This is interpreted to be according to the assignment, but may not be an optimal solution
+            //!!!
             IList<Customer> customers = new List<Customer>();
             customers.Add(new Customer("John", "Smith", bank.CreateAccount()));
             customers.Add(new Customer("Jane", "Smith", bank.CreateAccount()));
             customers.Add(new Customer("Mark", "Smith", bank.CreateAccount()));
 
-            //Display customer information
             foreach (Customer customer in customers)
             {
+                //Display customer information
                 Console.WriteLine(customer.ToString());
-            }
 
-            //Generate transactions
-            foreach (Customer customer in customers)
-            {
-                DateTime startDate = new DateTime(2017, 1, 1);
-                DateTime endDate = DateTime.Now;
-                TransactionGenerator.GenerateTransactions(bank, customer.AccountNumber, startDate, endDate);
-            }
-
-            //Display all transactions and account balance
-            foreach (Customer customer in customers)
-            {
+                //Generate transactions
+                DateTime transactionsStartDate = new DateTime(2017, 1, 1);
+                DateTime transactionsEndDate = new DateTime(2017, 2, 28);
+                TransactionGenerator.GenerateTransactions(bank, customer.AccountNumber, transactionsStartDate, transactionsEndDate);
+                
+                //Display all transactions and current account balance
                 Console.WriteLine(bank.GetTransactions(customer.AccountNumber));
-                Console.WriteLine("Account balance: {0:F2} EUR", bank.GetBalance(customer.AccountNumber));
-            }
 
-            //Display transactions by time frame and account balance
-            foreach (Customer customer in customers)
-            {
-                DateTime startDate = new DateTime(2017, 2, 1);
-                DateTime endDate = DateTime.Now;
-                Console.WriteLine(bank.GetTransactions(customer.AccountNumber, startDate, endDate));
-                Console.WriteLine("Account balance: {0:F2} EUR", bank.GetBalance(customer.AccountNumber));
-            }
+                //Display transactions by time frame and starting and ending account balance
+                DateTime queryStartDate = new DateTime(2017, 2, 1);
+                DateTime queryEndDate = new DateTime(2017, 2, 28);
+                Console.WriteLine(bank.GetTransactions(customer.AccountNumber, queryStartDate, queryEndDate));
 
-            //Display customer information and account balance
-            foreach (Customer customer in customers)
-            {
-                Console.WriteLine(customer.ToString());
-                Console.WriteLine("Account balance: {0:F2} EUR", bank.GetBalance(customer.AccountNumber));
+                //Display current account balance
+                Console.WriteLine("Current balance: {0:F2} EUR", bank.GetBalance(customer.AccountNumber));
             }
 
             Console.WriteLine("\nPress any key to exit!");
