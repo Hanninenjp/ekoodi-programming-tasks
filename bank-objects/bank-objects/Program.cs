@@ -26,7 +26,7 @@ namespace bank_objects
             //Generate transactions
             foreach (Customer customer in customers)
             {
-                DateTime startDate = new DateTime(2016, 12, 1);
+                DateTime startDate = new DateTime(2017, 1, 1);
                 DateTime endDate = DateTime.Now;
                 TransactionGenerator.GenerateTransactions(bank, customer.AccountNumber, startDate, endDate);
             }
@@ -35,6 +35,15 @@ namespace bank_objects
             foreach (Customer customer in customers)
             {
                 Console.WriteLine(bank.GetTransactions(customer.AccountNumber));
+                Console.WriteLine("Account balance: {0:F2} EUR", bank.GetBalance(customer.AccountNumber));
+            }
+
+            //Display transactions by time frame and account balance
+            foreach (Customer customer in customers)
+            {
+                DateTime startDate = new DateTime(2017, 2, 1);
+                DateTime endDate = DateTime.Now;
+                Console.WriteLine(bank.GetTransactions(customer.AccountNumber, startDate, endDate));
                 Console.WriteLine("Account balance: {0:F2} EUR", bank.GetBalance(customer.AccountNumber));
             }
 

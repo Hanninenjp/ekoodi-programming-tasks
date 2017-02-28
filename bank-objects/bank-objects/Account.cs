@@ -42,8 +42,10 @@ namespace bank_objects
 
         public void AddTransaction(decimal sum, DateTime timeStamp)
         {
-            _transactions.Add(new Transaction(sum, timeStamp));
-            _accountBalance += sum;
+            decimal oldBalance = _accountBalance;
+            decimal newBalance = _accountBalance + sum;
+            _transactions.Add(new Transaction(sum, oldBalance, newBalance, timeStamp));
+            _accountBalance = newBalance;
             //Console.WriteLine("\nAccount:AddTransaction:Transaction:Sum: {0}", sum);
             //Console.WriteLine("\nAccount:AddTransaction:Transaction:Timestamp: {0}", timeStamp);
             return;
@@ -51,19 +53,40 @@ namespace bank_objects
 
         public string GetTransactions()
         {
-            string transactions = String.Format("\nAccount number: {0}\nAccount transactions:", _accountNumber);
+            string transactions = String.Format("\nAccount number: {0}\nAccount transactions (all):", _accountNumber);
             foreach (Transaction t in _transactions)
             {
-                //transactions += String.Format("{0}", t.ToString());
                 transactions += t.ToString();
             }
             return transactions;
         }
 
+        public string GetTransactions(DateTime startDate, DateTime endDate)
+        {
+            string transactions = String.Format("\nAccount number: {0}\nAccount transactions ({1:dd.MM.yy}-{2:dd.MM.yy}:)", _accountNumber, startDate, endDate);
+            /*
+            IEnumerable<Transaction> query = from t in _transactions
+                                       where startDate <= t.TimeStamp
+                                       select t;
+            */                          
+            IList<Transaction> transactionsList = _transactions.Where(t => t.TimeStamp >= startDate && t.TimeStamp <= endDate).ToList();
+            foreach (Transaction t in transactionsList)
+            {
+                transactions += t.ToString();
+            }
+            transactions += String.Format("\nStart balance: {0} EUR\nEnd balance: {1} EUR", transactionsList.First().OldBalance, transactionsList.Last().NewBalance);
+            return transactions;
+        }
+
+        public decimal GetBalance()
+        {
+            return _accountBalance;
+        }
+
         //Methods:
-        //Get all transactions
-        //Get transactions by time frame
-        //Get account balance
+        //XGet all transactions
+        //XGet transactions by time frame
+        //!Get account balance
         //XAdd transaction
 
     }

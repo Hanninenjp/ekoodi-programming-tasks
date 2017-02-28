@@ -48,8 +48,8 @@ namespace bank_objects
         //Payment
         public static void processPayment(Bank bank, string accountNumber, DateTime timeStamp)
         {
-            //Generate random payment [1,00-400,00] EUR
-            bank.AddTransaction(accountNumber, -_rng.Next(1, 401), timeStamp);
+            //Generate random payment [1,00-200,00] EUR
+            bank.AddTransaction(accountNumber, -_rng.Next(1, 201), timeStamp);
         }
     }
 }

@@ -70,10 +70,16 @@ namespace bank_objects
             return targetAccount.GetTransactions();
         }
 
+        public string GetTransactions(string accountNumber, DateTime startDate, DateTime endDate)
+        {
+            Account targetAccount = _accounts.First(account => account.AccountNumber.Equals(accountNumber));
+            return targetAccount.GetTransactions(startDate, endDate);
+        }
+
         public decimal GetBalance(string accountNumber)
         {
             Account targetAccount = _accounts.First(account => account.AccountNumber.Equals(accountNumber));
-            return targetAccount.AccountBalance;
+            return targetAccount.GetBalance();
         }
     }
 }
