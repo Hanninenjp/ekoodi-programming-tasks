@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace bank_objects
 {
-    class Transaction
+    public class Transaction
     {
         private decimal _sum;
         private DateTime _timeStamp;
@@ -23,10 +23,9 @@ namespace bank_objects
             _timeStamp = timeStamp;
         }
 
-        public string ToString()
+        public override string ToString()
         {
-            return String.Format("\nSum: {0}", _sum);
-            //Timestamp is not yet supported
+            return String.Format("\nSum: {0:F2} EUR, Date: {1:dd.MM.yy}, Time: {2:HH:mm:ss}", _sum, _timeStamp, _timeStamp);
         }
     }
 }

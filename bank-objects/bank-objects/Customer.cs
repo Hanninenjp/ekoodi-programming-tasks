@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace bank_objects
 {
-    class Customer
+    public class Customer
     {
         private string _firstName;
         private string _lastName;

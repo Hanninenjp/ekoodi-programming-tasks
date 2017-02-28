@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace bank_objects
 {
-    class Bank
+    public class Bank
     {
         private string _bankName;
         private IList<Account> _accounts = new List<Account>();
@@ -60,7 +60,7 @@ namespace bank_objects
         public void AddTransaction(string accountNumber, decimal sum, DateTime timeStamp)
         {
             Account targetAccount = _accounts.First(account => account.AccountNumber.Equals(accountNumber));
-            Console.WriteLine("\nBank:AddTransaction:Target account: {0}", targetAccount.AccountNumber);
+            //Console.WriteLine("\nBank:AddTransaction:Target account: {0}", targetAccount.AccountNumber);
             targetAccount.AddTransaction(sum, timeStamp);
         }
 
@@ -68,6 +68,12 @@ namespace bank_objects
         {
             Account targetAccount = _accounts.First(account => account.AccountNumber.Equals(accountNumber));
             return targetAccount.GetTransactions();
+        }
+
+        public decimal GetBalance(string accountNumber)
+        {
+            Account targetAccount = _accounts.First(account => account.AccountNumber.Equals(accountNumber));
+            return targetAccount.AccountBalance;
         }
     }
 }

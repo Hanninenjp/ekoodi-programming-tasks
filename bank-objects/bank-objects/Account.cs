@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace bank_objects
 {
-    class Account
+    public class Account
     {
         private string _accountNumber;
         private decimal _accountBalance;
@@ -44,17 +44,18 @@ namespace bank_objects
         {
             _transactions.Add(new Transaction(sum, timeStamp));
             _accountBalance += sum;
-            Console.WriteLine("\nAccount:AddTransaction:Transaction:Sum: {0}", sum);
+            //Console.WriteLine("\nAccount:AddTransaction:Transaction:Sum: {0}", sum);
+            //Console.WriteLine("\nAccount:AddTransaction:Transaction:Timestamp: {0}", timeStamp);
             return;
         }
 
         public string GetTransactions()
         {
-            string transactions = String.Format("\nAccount: {0}\nAccount transactions:", _accountNumber);
+            string transactions = String.Format("\nAccount number: {0}\nAccount transactions:", _accountNumber);
             foreach (Transaction t in _transactions)
             {
-                //ToString needs to be overridden!
-                transactions += String.Format("{0}", t.ToString());
+                //transactions += String.Format("{0}", t.ToString());
+                transactions += t.ToString();
             }
             return transactions;
         }
