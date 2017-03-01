@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <event>
+    <information>
+      <name>Ski Jumping World Cup</name>
+      <venue>Bischofshofen</venue>
+      <hillsize>HS140</hillsize>
+      <date>1.3.2017</date>
+    </information>
+    <parameters>
+      <kpoint>125</kpoint>
+      <basepoints>60</basepoints>
+      <metervalue>1,8</metervalue>
+    </parameters>
+    <competitors>
+      <competitor>
+        <fiscode>5658</fiscode>
+        <lastname>PREVC</lastname>
+        <firstname>Peter</firstname>
+        <nation>SLO</nation>
+      </competitor>
+      <competitor>
+        <fiscode>4197</fiscode>
+        <lastname>FREUND</lastname>
+        <firstname>Severin</firstname>
+        <nation>GER</nation>
+      </competitor>
+      <competitor>
+        <fiscode>5288</fiscode>
+        <lastname>HAYBOECK</lastname>
+        <firstname>Michael</firstname>
+        <nation>AUT</nation>
+      </competitor>
+      <competitor>
+        <fiscode>5497</fiscode>
+        <lastname>KRAFT</lastname>
+        <firstname>Stefan</firstname>
+        <nation>AUT</nation>
+      </competitor>
+      <competitor>
+        <fiscode>5181</fiscode>
+        <lastname>GANGNES</lastname>
+        <firstname>Kenneth</firstname>
+        <nation>NOR</nation>
+      </competitor>
+      <competitor>
+        <fiscode>7091</fiscode>
+        <lastname>PREVC</lastname>
+        <firstname>Domen</firstname>
+        <nation>SLO</nation>
+      </competitor>
+    </competitors>
+  </event>
+</root>
