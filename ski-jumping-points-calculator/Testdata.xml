@@ -3,12 +3,12 @@
   <event>
     <information>
       <name>Ski Jumping World Cup</name>
-      <venue>Bischofshofen</venue>
-      <hillsize>HS140</hillsize>
+      <venue>Lahti</venue>
+      <hillsize>HS130</hillsize>
       <date>1.3.2017</date>
     </information>
     <parameters>
-      <kpoint>125</kpoint>
+      <kpoint>116</kpoint>
       <basepoints>60</basepoints>
       <metervalue>1,8</metervalue>
       <platformcorrectionfactor>5</platformcorrectionfactor>

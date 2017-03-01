@@ -11,6 +11,7 @@ namespace Ekoodi.Sports
         private double _kPoint;
         private double _basePoints;
         private double _meterValue;
+        private double _platformCorrectionFactor;
 
         public double KPoint
         {
@@ -27,16 +28,22 @@ namespace Ekoodi.Sports
             get { return _meterValue; }
         }
 
-        public EventParameters(double kPoint, double basePoints, double meterValue)
+        public double PlatformCorrectionFactor
+        {
+            get { return _platformCorrectionFactor; }
+        }
+
+        public EventParameters(double kPoint, double basePoints, double meterValue, double platformCorrectionFactor)
         {
             _kPoint = kPoint;
             _basePoints = basePoints;
             _meterValue = meterValue;
+            _platformCorrectionFactor = platformCorrectionFactor;
         }
 
         public override string ToString()
         {
-            return String.Format("\nK-point: {0}\nBase points: {1}\nMeter value: {2}", _kPoint, _basePoints, _meterValue);
+            return String.Format("\nK-point: {0}\nBase points: {1}\nMeter value: {2}\nPlatform correction factor: {3}", _kPoint, _basePoints, _meterValue, _platformCorrectionFactor);
         }
     }
 }

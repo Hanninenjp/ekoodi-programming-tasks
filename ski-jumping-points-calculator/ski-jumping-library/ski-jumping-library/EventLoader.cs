@@ -34,7 +34,8 @@ namespace Ekoodi.Sports
             double eventKPoint = double.Parse(eventXParameters.Element("kpoint").Value);
             double eventBasePoints = double.Parse(eventXParameters.Element("basepoints").Value);
             double eventMeterValue = double.Parse(eventXParameters.Element("metervalue").Value);
-            EventParameters eventParameters = new EventParameters(eventKPoint, eventBasePoints, eventMeterValue);
+            double eventPlatformCorrectionFactor = double.Parse(eventXParameters.Element("platformcorrectionfactor").Value);
+            EventParameters eventParameters = new EventParameters(eventKPoint, eventBasePoints, eventMeterValue, eventPlatformCorrectionFactor);
 
             //Process event competitors
             IList<XElement> eventXCompetitors = eventXElement.Descendants("competitors").First().Elements("competitor").ToList();
