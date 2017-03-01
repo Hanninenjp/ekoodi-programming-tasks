@@ -13,7 +13,7 @@ namespace Ekoodi.Sports
         private string _hill;
         private DateTime _date;
         private EventParameters _parameters;
-        private IList<Competitor> _competitors;
+        private IList<EventCompetitor> _competitors;
 
         public string Name
         {
@@ -40,12 +40,12 @@ namespace Ekoodi.Sports
             get { return _parameters; }
         }
 
-        public IList<Competitor> Competitors
+        public IList<EventCompetitor> Competitors
         {
             get { return _competitors; }
         }
 
-        public Event(string name, string venue, string hill, DateTime date, EventParameters parameters, IList<Competitor> competitors)
+        public Event(string name, string venue, string hill, DateTime date, EventParameters parameters, IList<EventCompetitor> competitors)
         {
             _name = name;
             _venue = venue;

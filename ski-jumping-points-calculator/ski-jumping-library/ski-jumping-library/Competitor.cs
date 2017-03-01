@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ekoodi.Sports
 {
-    public class Competitor
+    public class EventCompetitor
     {
         private string _fisCode;
         private string _firstName;
@@ -33,7 +33,7 @@ namespace Ekoodi.Sports
             get { return _nation; }
         }
 
-        public Competitor(string fisCode, string firstName, string lastName, string nation)
+        public EventCompetitor(string fisCode, string firstName, string lastName, string nation)
         {
             _fisCode = fisCode;
             _firstName = firstName;

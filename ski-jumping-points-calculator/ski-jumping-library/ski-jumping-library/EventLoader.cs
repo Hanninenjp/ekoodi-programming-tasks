@@ -38,11 +38,11 @@ namespace Ekoodi.Sports
 
             //Process event competitors
             IList<XElement> eventXCompetitors = eventXElement.Descendants("competitors").First().Elements("competitor").ToList();
-            IList<Competitor> eventCompetitors = new List<Competitor>();
+            IList<EventCompetitor> eventCompetitors = new List<EventCompetitor>();
             foreach (XElement competitorXElement in eventXCompetitors)
             {
                 Debug.WriteLine("\nXElement:Event:Competitors:Competitor\n{0}", competitorXElement);
-                Competitor eventCompetitor = new Competitor(competitorXElement.Element("fiscode").Value,
+                EventCompetitor eventCompetitor = new EventCompetitor(competitorXElement.Element("fiscode").Value,
                                                             competitorXElement.Element("firstname").Value,
                                                             competitorXElement.Element("lastname").Value,
                                                             competitorXElement.Element("nation").Value);
