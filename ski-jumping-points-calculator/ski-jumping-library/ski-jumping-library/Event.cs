@@ -8,12 +8,15 @@ namespace Ekoodi.Sports
 {
     public class Event
     {
+        //Also EventInformation could potentially be a class
         private string _name;
         private string _venue;
         private string _hill;
         private DateTime _date;
         private EventParameters _parameters;
         private IList<EventCompetitor> _competitors;
+        private IList<EventRound> _rounds;
+        private IList<EventResult> _results;
 
         public string Name
         {
@@ -45,6 +48,16 @@ namespace Ekoodi.Sports
             get { return _competitors; }
         }
 
+        public IList<EventRound> Rounds
+        {
+            get { return _rounds; }
+        }
+
+        public IList<EventResult> Results
+        {
+            get { return _results; }
+        }
+
         public Event(string name, string venue, string hill, DateTime date, EventParameters parameters, IList<EventCompetitor> competitors)
         {
             _name = name;
@@ -53,6 +66,49 @@ namespace Ekoodi.Sports
             _date = date;
             _parameters = parameters;
             _competitors = competitors;
+            _rounds = new List<EventRound>();
+            _results = new List<EventResult>();
+        }
+
+        public EventRound GetFirstRound()
+        {
+            //Just for testing, handling rounds needs further consideration
+            EventRound round = new EventRound("First round");
+            foreach (EventCompetitor c in _competitors)
+            {
+                round.AddJump(new Jump(c));
+            }
+            _rounds.Add(round);
+            return _rounds.First();
+        }
+
+        public EventRound GetNextRound()
+        {
+            //Just for testing, handling rounds needs further consideration
+            EventRound round = new EventRound("Next round");
+            foreach (EventResult c in _results.Reverse())
+            {
+                round.AddJump(new Jump(c.Competitor));
+            }
+            _rounds.Add(round);
+            return _rounds.Last();
+        }
+
+        public void AddResult(EventCompetitor competitor, double score)
+        {
+            //Create and add an event result object
+            _results.Add(new EventResult(competitor, score));
+            //Keep the results ordered
+            _results = _results.OrderByDescending(r => r.Score).ToList();
+        }
+
+        public void UpdateResult(EventCompetitor competitor, double score)
+        {
+            //Get the the event result object
+            EventResult result = _results.First(r => r.Competitor.FisCode == competitor.FisCode);
+            result.UpdateScore(score);
+            //Keep the results ordered
+            _results = _results.OrderByDescending(r => r.Score).ToList();
         }
 
         public override string ToString()

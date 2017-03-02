@@ -15,22 +15,10 @@
     </parameters>
     <competitors>
       <competitor>
-        <fiscode>5658</fiscode>
-        <lastname>PREVC</lastname>
-        <firstname>Peter</firstname>
-        <nation>SLO</nation>
-      </competitor>
-      <competitor>
         <fiscode>4197</fiscode>
         <lastname>FREUND</lastname>
         <firstname>Severin</firstname>
         <nation>GER</nation>
-      </competitor>
-      <competitor>
-        <fiscode>5288</fiscode>
-        <lastname>HAYBOECK</lastname>
-        <firstname>Michael</firstname>
-        <nation>AUT</nation>
       </competitor>
       <competitor>
         <fiscode>5497</fiscode>
@@ -43,12 +31,6 @@
         <lastname>GANGNES</lastname>
         <firstname>Kenneth</firstname>
         <nation>NOR</nation>
-      </competitor>
-      <competitor>
-        <fiscode>7091</fiscode>
-        <lastname>PREVC</lastname>
-        <firstname>Domen</firstname>
-        <nation>SLO</nation>
       </competitor>
     </competitors>
   </event>

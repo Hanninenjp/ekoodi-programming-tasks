@@ -33,6 +33,14 @@ namespace Ekoodi.Sports
             get { return _stylePoints; }
         }
 
+        public JumpData()
+        {
+            _jumpLength = 0;
+            _windCorrection = 0;
+            _platformCorrection = 0;
+            _stylePoints = new List<double> { 0, 0, 0, 0, 0 };
+        }
+
         public JumpData(double jumpLength, double windCorrection, double platformCorrection, IList<double> stylePoints)
         {
             _jumpLength = jumpLength;

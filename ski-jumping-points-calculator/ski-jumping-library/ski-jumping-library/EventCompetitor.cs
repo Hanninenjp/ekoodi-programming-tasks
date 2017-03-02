@@ -33,6 +33,14 @@ namespace Ekoodi.Sports
             get { return _nation; }
         }
 
+        public EventCompetitor()
+        {
+            _fisCode = String.Empty;
+            _firstName = String.Empty;
+            _lastName = String.Empty;
+            _nation = String.Empty;
+        }
+
         public EventCompetitor(string fisCode, string firstName, string lastName, string nation)
         {
             _fisCode = fisCode;

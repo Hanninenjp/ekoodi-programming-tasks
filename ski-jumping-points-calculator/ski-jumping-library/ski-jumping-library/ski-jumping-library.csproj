@@ -41,9 +41,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EventLoader.cs" />
-    <Compile Include="Competitor.cs" />
+    <Compile Include="EventCompetitor.cs" />
     <Compile Include="Event.cs" />
     <Compile Include="EventParameters.cs" />
+    <Compile Include="EventResult.cs" />
+    <Compile Include="EventRound.cs" />
     <Compile Include="Jump.cs" />
     <Compile Include="JumpData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
