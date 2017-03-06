@@ -27,6 +27,26 @@ namespace Ekoodi.Sports
             get { return _jumpScore; }
         }
 
+        public string CompetitorFisCode
+        {
+            get { return _competitor.FisCode; }
+        }
+
+        public string CompetitorLastName
+        {
+            get { return _competitor.LastName; }
+        }
+
+        public string CompetitorFirstName
+        {
+            get { return _competitor.FirstName; }
+        }
+
+        public string CompetitorNation
+        {
+            get { return _competitor.Nation; }
+        }
+
         public Jump()
         {
             _competitor = new EventCompetitor();
