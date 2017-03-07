@@ -67,7 +67,15 @@ namespace Ekoodi.Sports
             _parameters = parameters;
             _competitors = competitors;
             _rounds = new List<EventRound>();
+            
+            //Alternative implementation would be to just initialize an empty list
+            //Application would then Add results to the list
+            //Now application shall Update results in the list
             _results = new List<EventResult>();
+            foreach (EventCompetitor c in _competitors)
+            {
+                _results.Add(new EventResult(c, 0));
+            }
         }
 
         public EventRound GetFirstRound()
@@ -100,6 +108,9 @@ namespace Ekoodi.Sports
             _results.Add(new EventResult(competitor, score));
             //Keep the results ordered
             _results = _results.OrderByDescending(r => r.Score).ToList();
+            //Sort results are not reflected correctly in datagrid with binding list and binding source, for some reason
+            //Sorting needs further investigation, possible workaround is to just recreate the binding list and binding source
+            //after each update to the list
         }
 
         public void UpdateResult(EventCompetitor competitor, double score)
@@ -109,6 +120,9 @@ namespace Ekoodi.Sports
             result.UpdateScore(score);
             //Keep the results ordered
             _results = _results.OrderByDescending(r => r.Score).ToList();
+            //Sort results are not reflected correctly in datagrid with binding list and binding source, for some reason
+            //Sorting needs further investigation, possible workaround is to just recreate the binding list and binding source
+            //after each update to the list
         }
 
         public override string ToString()

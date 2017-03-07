@@ -27,6 +27,8 @@ namespace Ekoodi.Sports
             get { return _jumpScore; }
         }
 
+        //Get properties are added for the nested class to simplify GUI implementation
+
         public string CompetitorFisCode
         {
             get { return _competitor.FisCode; }
@@ -68,6 +70,7 @@ namespace Ekoodi.Sports
 
             //Calculate and set jump score
             double score = 0;
+
             //Length
             //points = basepoints + (length-kpoint)*metervalue
             score += parameters.BasePoints + (data.JumpLength - parameters.KPoint) * parameters.MeterValue;
@@ -94,6 +97,9 @@ namespace Ekoodi.Sports
             IList<double> usedStylePoints = data.StylePoints.OrderBy(sp => sp).Skip(1).Take(3).ToList();
             score += usedStylePoints.Sum();
             _jumpScore = score;
+
+            //Note negative points for a jump are possible by the scoring algorithm and are allowed by the implementation!
+
         }
 
         public override string ToString()

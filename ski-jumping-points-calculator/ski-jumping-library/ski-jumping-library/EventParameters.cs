@@ -43,7 +43,7 @@ namespace Ekoodi.Sports
 
         public override string ToString()
         {
-            return String.Format("\nK-point: {0}\nBase points: {1}\nMeter value: {2}\nPlatform correction factor: {3}", _kPoint, _basePoints, _meterValue, _platformCorrectionFactor);
+            return String.Format("K-point: {0} m\nBase points: {1} points\nMeter value: {2} points/m\nPlatform correction factor: {3} m/m in platform height", _kPoint, _basePoints, _meterValue, _platformCorrectionFactor);
         }
     }
 }

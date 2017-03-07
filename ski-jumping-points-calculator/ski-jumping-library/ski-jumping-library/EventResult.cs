@@ -21,6 +21,28 @@ namespace Ekoodi.Sports
             get { return _score; }
         }
 
+        //Get properties are added for the nested class to simplify GUI implementation
+
+        public string CompetitorFisCode
+        {
+            get { return _competitor.FisCode; }
+        }
+
+        public string CompetitorLastName
+        {
+            get { return _competitor.LastName; }
+        }
+
+        public string CompetitorFirstName
+        {
+            get { return _competitor.FirstName; }
+        }
+
+        public string CompetitorNation
+        {
+            get { return _competitor.Nation; }
+        }
+
         public EventResult()
         {
             _competitor = new EventCompetitor();
@@ -35,7 +57,7 @@ namespace Ekoodi.Sports
 
         public void UpdateScore(double score)
         {
-            _score += score;
+            _score = score;
         }
     }
 }

@@ -27,6 +27,9 @@ namespace ski_jumping_application_WF
             CompetitorNationText.Text = _jump.CompetitorNation;
         }
 
+        //Handle enter event to select control text when tabbed into control
+        //This is intended to make entering the values more fluid
+
         private void JumpLengthValue_Enter(object sender, EventArgs e)
         {
             JumpLengthValue.Select(0, JumpLengthValue.Text.Length);
@@ -69,13 +72,16 @@ namespace ski_jumping_application_WF
 
         private void BtnSetScore_Click(object sender, EventArgs e)
         {
+            //Handle jump scoring and close
             IList<double> stylePoints = new List<double>();
             stylePoints.Add((double)JumpStyle1Value.Value);
             stylePoints.Add((double)JumpStyle2Value.Value);
             stylePoints.Add((double)JumpStyle3Value.Value);
             stylePoints.Add((double)JumpStyle4Value.Value);
             stylePoints.Add((double)JumpStyle5Value.Value);
-            JumpData jumpData = new JumpData((double)JumpLengthValue.Value, (double)JumpWindValue.Value, (double)JumpPlatformValue.Value, stylePoints);
+            //Positive change in platform (+meters in platform height) affects negatively to the score (-points)
+            //User can simply enter the difference in the platform in meters
+            JumpData jumpData = new JumpData((double)JumpLengthValue.Value, (double)JumpWindValue.Value, -(double)JumpPlatformValue.Value, stylePoints);
             _jump.ScoreJump(jumpData, _parameters);
             Close();
         }
