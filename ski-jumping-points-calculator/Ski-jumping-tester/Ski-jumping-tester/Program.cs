@@ -19,7 +19,7 @@ namespace Ski_jumping_tester
             //Load event information, parameters and competitors from a file
             Event competitionEvent = EventLoader.LoadXML("../../../../Testevent.xml");
             Console.WriteLine("\nEvent:{0}", competitionEvent.ToString());
-            Console.WriteLine("\nEvent parameters:{0}", competitionEvent.Parameters.ToString());
+            Console.WriteLine("\nEvent parameters:\n{0}", competitionEvent.Parameters.ToString());
             Console.WriteLine("\nEvent competitors:");
             foreach (EventCompetitor c in competitionEvent.Competitors)
             {
@@ -69,7 +69,10 @@ namespace Ski_jumping_tester
             {
                 JumpData jumpData = new JumpData(rng.Next(100, 130 + 1), windCorrection, platformCorrection, stylePoints);
                 jump.ScoreJump(jumpData, competitionEvent.Parameters);
-                competitionEvent.AddResult(jump.Competitor, jump.Score);
+                //Previous implementation, not compatible with library changes
+                //competitionEvent.AddResult(jump.Competitor, jump.Score);
+                //New implementation, update result, following library changes
+                competitionEvent.UpdateResult(jump.Competitor, jump.Score);
                 //Console.WriteLine("\nFirst round jump:\nCompetitor:{0}\nJump:{1}\nScore: {2:F2}", jump.Competitor.ToString(), jump.Data.ToString(), jump.Score);
             }
 
@@ -83,7 +86,8 @@ namespace Ski_jumping_tester
             */
 
             //Second round
-            EventRound secondRound = competitionEvent.GetNextRound();
+            //Second round is currently not fully supported after library changes, see below
+            //EventRound secondRound = competitionEvent.GetNextRound();
 
             //Now done by Event in previous step
             /*
@@ -94,6 +98,10 @@ namespace Ski_jumping_tester
             }
             */
 
+            //Previous implementation, not compatible with library changes
+            //Current update method just updates the existing score with the new one, instead of incrementing the score
+            //If suppport for multiple rounds is later required, increment functionality can be added to the library
+            /*
             //Make second round test jumps, set data about jump and calculate and set score
             foreach (Jump j in secondRound.Jumps)
             {
@@ -102,6 +110,7 @@ namespace Ski_jumping_tester
                 competitionEvent.UpdateResult(j.Competitor, j.Score);
                 //Console.WriteLine("\nSecond round jump:\nCompetitor:{0}\nJump:{1}\nScore: {2:F2}", j.Competitor.ToString(), j.Data.ToString(), j.Score);
             }
+            */
 
             //Display jumps by round
             foreach (EventRound r in competitionEvent.Rounds)
