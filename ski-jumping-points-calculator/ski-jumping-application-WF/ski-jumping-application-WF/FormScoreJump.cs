@@ -72,7 +72,7 @@ namespace ski_jumping_application_WF
 
         private void BtnSetScore_Click(object sender, EventArgs e)
         {
-            //Handle jump scoring and close
+            //Handle jump scoring and close by setting dialog result
             IList<double> stylePoints = new List<double>();
             stylePoints.Add((double)JumpStyle1Value.Value);
             stylePoints.Add((double)JumpStyle2Value.Value);
@@ -83,7 +83,7 @@ namespace ski_jumping_application_WF
             //User can simply enter the difference in the platform in meters
             JumpData jumpData = new JumpData((double)JumpLengthValue.Value, (double)JumpWindValue.Value, -(double)JumpPlatformValue.Value, stylePoints);
             _jump.ScoreJump(jumpData, _parameters);
-            Close();
+            DialogResult = DialogResult.OK;
         }
     }
 }
