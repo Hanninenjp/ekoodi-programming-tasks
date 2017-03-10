@@ -20,7 +20,7 @@ namespace bank_objects
                 //Payments
                 for (int i = 0; i < 10; i++)
                 {
-                    int dayIncrement = _rng.Next(1, 5);
+                    int dayIncrement = _rng.Next(1, 6);
                     if (timeStamp.Day + dayIncrement < DateTime.DaysInMonth(timeStamp.Year, timeStamp.Month))
                     {
                         timeStamp = timeStamp.AddDays(dayIncrement).AddHours(_rng.Next(0, 24)).AddMinutes(_rng.Next(0, 60)).AddSeconds(_rng.Next(0, 60));
