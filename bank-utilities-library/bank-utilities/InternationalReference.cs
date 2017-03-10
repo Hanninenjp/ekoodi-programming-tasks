@@ -78,7 +78,8 @@ namespace Ekoodi.Utilities
                 //Conversion is done in upper case
                 if (CharacterConverter.Convert(checkSequence.ToUpper(), out digitSequence))
                 {
-                    //Console.WriteLine("Check string: {0}", digitSequence);
+                    //Console.WriteLine("\nCheck string: {0}", checkSequence);
+                    //Console.WriteLine("\nValidation string: {0}", digitSequence);
                     return Modulus97.ValidateCheckDigits(digitSequence);
                 }
             }
